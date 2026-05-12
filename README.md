@@ -1,83 +1,181 @@
 # GBC-CR2025-FlexHolder
 
-> Removable CR2025 battery holder for Game Boy Color cartridges — flexible PCB mod, no desoldering required for battery swaps.
-
 [![License: CERN-OHL-S v2](https://img.shields.io/badge/License-CERN--OHL--S%20v2-blue.svg)](LICENSE)
 [![KiCad](https://img.shields.io/badge/EDA-KiCad-brightgreen)](https://www.kicad.org/)
 [![PCB: Flex](https://img.shields.io/badge/PCB-Flexible-orange)]()
+
+**Removable CR2025 battery holder on flexible PCB for Game Boy Color cartridges.**
+
+> Full article (FR) : [JLCPCB Blog || Support CR2025 amovible, PCB flexible, Game Boy Color](https://jlcpcb.com/fr/blog/support-cr2025-amovible-pcb-flexible-game-boy-color)
+
+<img src="image/photo-finished.png" width="600" alt="Finished mod installed in cartridge">
 
 ---
 
 ## The Problem
 
-Original Game Boy Color cartridges use a CR2025 battery with **soldered tabs** welded to the cell. When the battery dies, you need a hot air station or careful iron work to replace it — risky for the PCB and the cartridge chip.
+Game Boy Color cartridges use a CR2025 button cell to save game data. The problem: this battery is not a standard coin cell. It comes with **metal tabs welded directly onto it**, designed to be soldered onto the cartridge PCB.
 
-Standard CR2025 batteries (without tabs) are cheap, available everywhere, and last just as long. The only thing missing was a proper holder.
+When the battery dies, you have to desolder it. This is a delicate operation:
+- The battery is pressed flat against the PCB, hard to access
+- Too much heat risks damaging the PCB or the save chip
+- Tabbed batteries are more expensive, harder to find, and often poor quality
+
+**The idea:** replace this system with a removable holder, so any standard CR2025 can be swapped without soldering.
+
+---
 
 ## The Solution
 
-A **flexible PCB battery holder** that:
-- Drops into the original footprint with 2 solder joints (positive + negative)
-- Accepts any standard CR2025 coin cell (no tabs, no soldering)
-- Uses a metal clip (MY-2032-12) for reliable, repeated swaps
-- Adds a polyimide stiffener under the clip for mechanical strength
+A **flexible PCB** soldered once in place of the original battery. It holds a metal clip (MY-2032-12) that keeps the battery in contact. To replace the battery, just clip it in — no soldering iron needed.
 
-📰 **Full article (FR):** [JLCPCB Blog — Support CR2025 amovible, PCB flexible, Game Boy Color](https://jlcpcb.com/fr/blog/support-cr2025-amovible-pcb-flexible-game-boy-color)
-
-![Finished mod installed in cartridge](image/photo-finished.png)
-
----
-
-## Features
-
-- Standard CR2025 coin cell — buy anywhere, no tabs needed
-- Single solder joint installation on the cartridge PCB
-- Flexible PCB conforms to cartridge shell geometry
-- Polyimide stiffener for rigidity under the battery clip
-- Fully open source — KiCad source files included
+### Features
+- Standard CR2025 coin cell, available anywhere, cheap
+- Only 2 solder joints during installation (+ and −) || zero soldering after that
+- Flexible PCB adapts to the tight space inside the cartridge
+- Polyimide stiffener under the clip for mechanical rigidity
+- Open source: KiCad source files and Gerbers included
 
 ---
 
-## PCB Design
+## Schematic
 
-| Schematic | PCB Layout | 3D Top | 3D Bottom |
-|-----------|-----------|--------|-----------|
-| ![schematic](image/schematic.png) | ![pcb layout](image/pcb-layout.png) | ![3d top](image/3d-render-top.png) | ![3d bottom](image/3d-render-bottom.png) |
+Minimal schematic: one battery between VCC and GND. No active component, no resistor, no capacitor. The PCB is just an electrical bridge between the cartridge and the battery.
 
-## Bill of Materials
-
-| Ref | Component | JLCPCB Part # | Qty |
-|-----|-----------|---------------|-----|
-| BT1 | MY-2032-12 battery clip (CR2025 compatible) | C964833 | 1 |
-| — | Flexible PCB (this design) | — | 1 |
-
-> The MY-2032-12 clip is designed for CR2032 but fits CR2025 with good contact pressure.
-
-![JLCPCB component page for MY-2032-12](image/jlcpcb-component-my2032-12.png)
+![KiCad schematic](image/schematic.png)
 
 ---
 
-## Real Build Photos
+## PCB || Layout and 3D Render
 
-| Parts | Flex soldered | Clip installed | Close-up |
-|-------|--------------|----------------|----------|
-| ![parts](image/photo-parts.png) | ![flex](image/photo-flex-installed.png) | ![clip](image/photo-clip-installed.png) | ![closeup](image/photo-clip-closeup.png) |
+The layout matches exactly the footprint of the original battery.
 
-## Manufacturing Notes (JLCPCB)
+![PCB layout || KiCad view](image/pcb-layout.png)
 
-This is a **flexible PCB** with a **polyimide stiffener**.
+3D render || top (MY-2032-12 clip side):
 
-When ordering:
-1. Select **Flex PCB** as board type
-2. Upload `GERBERS-GBC-CR2025-FlexHolder.zip`
-3. Select **Polyimide** stiffener in advanced options
-4. In the PCB remark field, write: **"Pouvez-vous utiliser la couche (User.9) pour le stiffener en polyimide"**
+![3D render || top](image/3d-render-top.png)
 
-| Order settings | Advanced options | Stiffener note | User.9 layer in KiCad |
-|----------------|-----------------|----------------|-----------------------|
-| ![order](image/jlcpcb-order-settings.png) | ![advanced](image/jlcpcb-advanced-settings.png) | ![note](image/jlcpcb-order-note.png) | ![user9](image/kicad-user9-layer.png) |
+3D render || bottom (cat logo — because why not):
 
-The stiffener layer (`User.9` in KiCad) defines the area that needs rigidity under the battery clip. Without this note, JLCPCB will not apply the stiffener correctly.
+![3D render || bottom](image/3d-render-bottom.png)
+
+---
+
+## Component || MY-2032-12 Clip
+
+The clip used is the **MY-2032-12** by MYOUNG, JLCPCB part number **C964833**. Designed for CR2032, it works perfectly with the slightly thinner CR2025 thanks to the spring contact pressure.
+
+| Parameter | Value |
+|-----------|-------|
+| Manufacturer | MYOUNG |
+| Reference | MY-2032-12 |
+| JLCPCB Part # | C964833 |
+| Package | SMD |
+| Material | Nickel phosphor bronze |
+| Temperature | −25°C to +85°C |
+| Mount | SMD |
+
+![JLCPCB component page || MY-2032-12](image/jlcpcb-component-my2032-12.png)
+
+---
+
+## Manufacturing at JLCPCB
+
+### Order Settings
+
+**File to upload:** `GERBERS-GBC-CR2025-FlexHolder.zip`
+
+This is a **Flex PCB**, not a standard FR4 board.
+
+![Order settings || Flex PCB type](image/jlcpcb-order-settings.png)
+
+| Parameter | Value |
+|-----------|-------|
+| Type | Flex PCB |
+| Substrate | 25 µm dielectric thickness |
+| Layers | 2 |
+| Dimensions | 24.7 × 20.3 mm |
+| Thickness | 0.11 mm |
+| Coverlay | Yellow |
+| Silkscreen | White |
+| Surface finish | ENIG |
+| Gold thickness | 1 U" |
+| Copper | Electro-deposited |
+| Copper weight | 1/3 oz |
+
+### Advanced Options || Polyimide Stiffener
+
+The stiffener is mandatory: without it, the MY-2032-12 clip has no mechanical rigidity to hold the battery reliably.
+
+![Advanced options || polyimide stiffener 0.1 mm](image/jlcpcb-advanced-settings.png)
+
+| Parameter | Value |
+|-----------|-------|
+| EDA software | Other (not EasyEDA Pro) |
+| Stiffener | Polyimide |
+| Polyimide thickness | 0.1 mm |
+| Cutting method | Laser |
+| Electrical test | Full flying probe test |
+| Silkscreen on stiffener | Yes |
+
+> **Important:** By selecting "Other" as EDA software, JLCPCB cannot auto-detect the stiffener layer. You must specify it manually in the **PCB Remark** field.
+
+### Required PCB Remark
+
+In the **PCB Remark** field of the order, write exactly:
+
+```
+Can you use the layer (User.9) for the polyimide stiffener.
+```
+
+![PCB remark in JLCPCB order](image/jlcpcb-order-note.png)
+
+### User.9 Layer in KiCad
+
+The stiffener area is defined on the `User.9` layer in KiCad. This is the layer that tells JLCPCB where to apply the rigid polyimide.
+
+![User.9 layer visible in KiCad](image/kicad-user9-layer.png)
+
+---
+
+## Assembly
+
+### What You Need
+
+- 1 Game Boy Color cartridge (with dead tabbed CR2025)
+- 1 flex PCB (this project, manufactured at JLCPCB)
+- 1 MY-2032-12 clip (JLCPCB C964833)
+- 1 standard CR2025 coin cell (no tabs)
+- Soldering iron + solder
+
+### Steps
+
+**1. Open the cartridge** with a 3.8 mm Game Bit screwdriver.
+
+**2. Desolder the original battery.** The tabbed battery is soldered on 2 pads (+ and −). Remove cleanly with a desoldering pump or braid.
+
+**3. Clean the pads.**
+
+**4. Position the flex PCB** at the original battery location. The 2 pads on the flex align with the 2 pads on the cartridge.
+
+<img src="image/photo-parts.png" width="500" alt="Parts separated || cartridge, clip and flex PCB">
+
+**5. Solder the 2 contact points** (positive + negative). This is the only soldering for the entire lifetime of the mod.
+
+<img src="image/photo-flex-installed.png" width="500" alt="Flex PCB soldered on cartridge">
+
+**6. Clip a standard CR2025** into the MY-2032-12 clip.
+
+<img src="image/photo-clip-installed.png" width="500" alt="Clip installed || top view">
+
+<img src="image/photo-clip-closeup.png" width="500" alt="Clip installed || close-up">
+
+<img src="image/photo-clip-angle.png" width="500" alt="Clip installed || angle view">
+
+**7. Close the cartridge.**
+
+For future replacements: open the cartridge, pop out the old CR2025, clip in a new one. No soldering.
 
 ---
 
@@ -86,31 +184,18 @@ The stiffener layer (`User.9` in KiCad) defines the area that needs rigidity und
 ```
 /
 ├── README.md
-├── LICENSE
+├── LICENSE                                       ← CERN-OHL-S v2
 ├── CONTRIBUTING.md
-├── supports de pile cr2025 GBC.kicad_pro     ← KiCad project
-├── supports de pile cr2025 GBC.kicad_pcb     ← PCB layout
-├── supports de pile cr2025 GBC.kicad_sch     ← Schematic
-├── GERBERS-GBC-CR2025-FlexHolder/            ← Gerber files (ready to order)
-│   ├── *.gbr                                 ← Gerber layers
-│   ├── *.drl                                 ← Drill files
-│   └── *-job.gbrjob                          ← Gerber job file
-└── GERBERS-GBC-CR2025-FlexHolder.zip         ← Gerber archive (upload to JLCPCB)
+├── supports de pile cr2025 GBC.kicad_pro         ← KiCad project
+├── supports de pile cr2025 GBC.kicad_pcb         ← PCB layout
+├── supports de pile cr2025 GBC.kicad_sch         ← Schematic
+├── supports de pile cr2025 GBC.pretty/           ← Footprint library
+├── GERBERS-GBC-CR2025-FlexHolder/                ← Gerber files
+│   ├── *.gbr                                     ← Gerber layers
+│   ├── *.drl                                     ← Drill files
+│   └── *-job.gbrjob                              ← Gerber job file
+└── GERBERS-GBC-CR2025-FlexHolder.zip             ← Archive to upload to JLCPCB
 ```
-
----
-
-## Assembly
-
-1. Open the cartridge (Game Boy Color game)
-2. Desolder the original CR2025 with tabs
-3. Clean the pads
-4. Position the flex PCB at the original battery pads
-5. Solder the 1 or 2 contact points
-6. Insert a standard CR2025 into the MY-2032-12 clip
-7. Close the cartridge
-
-No more desoldering for future battery replacements — just pop out the old CR2025 and clip in a new one.
 
 ---
 
@@ -122,48 +207,18 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-Hardware design files licensed under [CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S v2)](LICENSE).
+Design files licensed under [CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S v2)](LICENSE).
 
-You are free to use, study, modify and distribute this design. If you make modifications and distribute them, you must do so under the same license.
-
----
+Free to use, study, modify and distribute. Any modified version distributed must be under the same license.
 
 ---
 
-## FR — Documentation française
+## Français
 
-### Problème
+**Support de pile CR2025 amovible sur PCB flexible pour cartouches Game Boy Color.**
 
-Les cartouches Game Boy Color utilisent une pile CR2025 avec **languettes soudées** directement sur la pile. Pour la remplacer, il faut dessouder — opération risquée sans matériel adapté.
+Les cartouches Game Boy Color utilisent une pile CR2025 à languettes soudées. Quand elle est morte, il faut la dessouder || opération risquée pour le PCB. Ce mod remplace la pile d'origine par un PCB flexible avec un clip MY-2032-12 : on soude une fois (+ et −), et on clipse les piles CR2025 standard sans jamais ressouder.
 
-### Solution
+**Fabrication :** Flex PCB chez JLCPCB, raidisseur polyimide sur couche `User.9`. Indiquer dans la remarque PCB : `Pouvez-vous utiliser la couche (User.9) pour le stiffener en polyimide.`
 
-Un **PCB flexible** qui :
-- S'installe à la place de la pile d'origine avec 2 points de soudure (positif + négatif) — ce sont eux qui font le pont électrique entre le flex et la pile
-- Accepte n'importe quelle CR2025 standard (sans languettes)
-- Utilise un clip métal (MY-2032-12) pour les échanges répétés sans soudure
-- Intègre un raidisseur en polyimide sous le clip pour la tenue mécanique
-
-📰 **Article complet :** [JLCPCB Blog — Support CR2025 amovible, PCB flexible, Game Boy Color](https://jlcpcb.com/fr/blog/support-cr2025-amovible-pcb-flexible-game-boy-color)
-
-### Fabrication (JLCPCB)
-
-1. Choisir **Flex PCB** comme type de carte
-2. Uploader `GERBERS-GBC-CR2025-FlexHolder.zip`
-3. Dans les notes de commande : **"Polyimide stiffener on User.9 layer"**
-
-### Montage
-
-1. Ouvrir la cartouche
-2. Dessouder la pile CR2025 d'origine (avec languettes)
-3. Nettoyer les pastilles
-4. Positionner le PCB flexible à l'emplacement d'origine
-5. Souder les 2 points de contact (positif + négatif)
-6. Insérer une CR2025 standard dans le clip
-7. Refermer la cartouche
-
-Les remplacements suivants ne nécessitent plus de fer à souder — juste clipser une nouvelle pile.
-
-### Licence
-
-Fichiers de conception sous [CERN-OHL-S v2](LICENSE). Modifications obligatoirement redistribuées sous la même licence.
+Article complet : [JLCPCB Blog](https://jlcpcb.com/fr/blog/support-cr2025-amovible-pcb-flexible-game-boy-color)
