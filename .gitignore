@@ -1,0 +1,16 @@
+# KiCad temp/lock files
+*.lck
+*-backups/
+_autosave-*
+fp-info-cache
+fp-lib-table
+*.kicad_prl
+empty.kicad_wks
+
+# Old versions / scratch
+V1/
+V1.zip
+V1supports*
+TESTN2.zip
+newwwww*
+bac/

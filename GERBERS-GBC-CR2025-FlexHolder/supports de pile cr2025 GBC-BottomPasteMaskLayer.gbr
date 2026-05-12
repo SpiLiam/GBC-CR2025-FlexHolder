@@ -1,0 +1,23 @@
+%TF.GenerationSoftware,KiCad,Pcbnew,9.0.3*%
+%TF.CreationDate,2026-05-13T00:59:26+02:00*%
+%TF.ProjectId,supports de pile cr2025 GBC,73757070-6f72-4747-9320-64652070696c,rev?*%
+%TF.SameCoordinates,Original*%
+%TF.FileFunction,Paste,Bot*%
+%TF.FilePolarity,Positive*%
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW 9.0.3) date 2026-05-13 00:59:26*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%ADD10C,0.200000*%
+G04 APERTURE END LIST*
+D10*
+X178210326Y-102726266D02*
+X177448422Y-102726266D01*
+X155700326Y-85896266D02*
+X154938422Y-85896266D01*
+X155319374Y-86277219D02*
+X155319374Y-85515314D01*
+M02*
